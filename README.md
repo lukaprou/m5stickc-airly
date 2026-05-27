@@ -26,12 +26,18 @@ Managed automatically by PlatformIO:
 
 ## Configuration
 
-Update a `src/secrets.h` file with your Wi-Fi credentials and Airly API key:
+Copy the example secrets file and fill in your credentials:
+
+```bash
+cp src/secrets.h.example src/secrets.h
+```
+
+Then edit `src/secrets.h` with your Wi-Fi credentials and Airly API key:
 
 ```cpp
-#define ssid "YOUR_WIFI_SSID"
-#define password "YOUR_WIFI_PASSWORD"
-#define apikey "YOUR_AIRLY_API_KEY"
+const char* ssid = "YOUR_WIFI_SSID";
+const char* password = "YOUR_WIFI_PASSWORD";
+const char* apikey = "YOUR_AIRLY_API_KEY";
 ```
 
 Get a free Airly API key at [developer.airly.org](https://developer.airly.org/). The free tier provides **100 requests per day**, which is more than enough since the device only fetches data every 15 minutes (96 requests/day).
@@ -90,8 +96,11 @@ Get a free Airly API key at [developer.airly.org](https://developer.airly.org/).
 ```
 Airly/
 ├── platformio.ini       # PlatformIO project configuration
+├── LICENSE              # MIT License
 ├── src/
-│   └── main.cpp         # Firmware source code
+│   ├── main.cpp         # Firmware source code
+│   ├── secrets.h        # Your credentials (git-ignored)
+│   └── secrets.h.example# Template for secrets.h
 ├── include/             # Header files (unused)
 ├── lib/                 # Project-specific libraries (unused)
 └── test/                # Unit tests (unused)
@@ -113,3 +122,7 @@ The firmware uses the [Airly REST API v2](https://developer.airly.org/docs) to f
 - **Screen blinking** — usually caused by rapid API re-fetches; the firmware guards against this with a 15-minute backoff timer
 - **pyserial termios error on macOS with Python 3.14** — install pyserial from git: `pip install git+https://github.com/pyserial/pyserial.git`
 - **Rate limit reached on first boot** — the device will show the placeholder screen; data will auto-refresh when the Airly daily quota resets (midnight UTC)
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
